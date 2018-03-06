@@ -1,0 +1,4 @@
+Hours Spent
+--------------
+- Research and colloboration + Planning 5:45 - 7:00 + 9:00 - 10:00 = 3.25 x 7 hours
+- Bug 1 exploration + architecture overview of code + testing overview (Charles, Avi, Yichen) = 3 x 2 = 6 hours
