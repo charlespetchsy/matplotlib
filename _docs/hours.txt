@@ -1,4 +1,9 @@
 Hours Spent
 --------------
-- Research and colloboration + Planning 5:45 - 7:00 + 9:00 - 10:00 = 3.25 x 7 hours
+03/06
+- Research and colloboration + Planning 5:45 - 7:00 + 9:00 - 10:00 = 3.25 x 7 = 21 hours
 - Bug 1 exploration + architecture overview of code + testing overview (Charles, Avi, Yichen) = 3 x 2 = 6 hours
+
+03/07
+- everyone up setup local install from source
+  - everyone is up to speed with their local dev environment = 3 x 7 = 21 hours
