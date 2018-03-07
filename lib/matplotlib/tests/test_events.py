@@ -1,5 +1,5 @@
 import unittest
-
+import pytest
 
 class TestStringMethods(unittest.TestCase):
 
@@ -16,6 +16,65 @@ class TestStringMethods(unittest.TestCase):
         # check that s.split fails when the separator is not a string
         with self.assertRaises(TypeError):
             s.split(2)
+
+    def test_figure_size_QT5Agg(self):
+        # After a single increment after get_size_inches() is called
+        import matplotlib
+        matplotlib.use('Qt5Agg')
+        fig = plt.figure(figsize=(8, 6))
+
+        result1 = '''
+        Before resize, size is  [8. 6.]
+        Size will be set to  [8.8 6.6]
+        After resize, size is  [8.8 6.6]
+        '''
+        new_size = 1.1 * fig.get_size_inches()
+        self.assertEqual(new_size, result1)
+
+    def test_figure_size_TKAgg(self):
+        # After a single increment after get_size_inches() is called
+        import matplotlib
+        matplotlib.use('TKAgg')
+        fig = plt.figure(figsize=(8, 6))
+        
+        result1 = '''
+        Before resize, size is  [8. 6.]
+        Size will be set to  [8.8 6.6]
+        After resize, size is  [8.8 6.6]
+        '''
+        new_size = 1.1 * fig.get_size_inches()
+        self.assertEqual(new_size, result1)
+
+    def test_figure_size_GTKAgg(self):
+        # After a single increment after get_size_inches() is called
+        import matplotlib
+        matplotlib.use('GTKAgg')
+        fig = plt.figure(figsize=(8, 6))
+        
+        result1 = '''
+        Before resize, size is  [8. 6.]
+        Size will be set to  [8.8 6.6]
+        After resize, size is  [8.8 6.6]
+        '''
+        new_size = 1.1 * fig.get_size_inches()
+        self.assertEqual(new_size, result1)
+
+    def test_figure_size_WX(self):
+        # After a single increment after get_size_inches() is called
+        import matplotlib
+        matplotlib.use('WX')
+        fig = plt.figure(figsize=(8, 6))
+        
+        result1 = '''
+        Before resize, size is  [8. 6.]
+        Size will be set to  [8.8 6.6]
+        After resize, size is  [8.8 6.6]
+        '''
+        new_size = 1.1 * fig.get_size_inches()
+        self.assertEqual(new_size, result1)
+
+    def test_canvas_size(self):
+        None
 
 
 if __name__ == '__main__':
