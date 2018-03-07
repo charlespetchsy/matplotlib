@@ -21,21 +21,17 @@ class TestStringMethods(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-    import matplotlib
     import matplotlib.pyplot as plt
-
-    matplotlib.use('Qt5Agg')
-    fig = plt.figure(figsize=(8, 6))
-
+    fig = plt.figure(figsize=(5, 5))
 
     def press(event):
+        # Need to find method that returns window size
         print('Before resize, size is ', fig.get_size_inches())
         sz = 1.1 * fig.get_size_inches()
         print('Size will be set to ', sz)
         fig.set_size_inches(sz, forward=True)
         fig.canvas.draw()
         print('After resize, size is ', fig.get_size_inches())
-
 
     fig.canvas.mpl_connect('key_press_event', press)
     fig.show()
