@@ -21,13 +21,9 @@ class TestStringMethods(unittest.TestCase):
         # After a single increment after get_size_inches() is called
         import matplotlib
         matplotlib.use('Qt5Agg')
-        fig = plt.figure(figsize=(8, 6))
+        fig = plt.figure(figsize=(5, 5))
 
-        result1 = '''
-        Before resize, size is  [8. 6.]
-        Size will be set to  [8.8 6.6]
-        After resize, size is  [8.8 6.6]
-        '''
+        result1 = 5.5
         new_size = 1.1 * fig.get_size_inches()
         self.assertEqual(new_size, result1)
 
@@ -35,13 +31,9 @@ class TestStringMethods(unittest.TestCase):
         # After a single increment after get_size_inches() is called
         import matplotlib
         matplotlib.use('TKAgg')
-        fig = plt.figure(figsize=(8, 6))
+        fig = plt.figure(figsize=(5, 5))
         
-        result1 = '''
-        Before resize, size is  [8. 6.]
-        Size will be set to  [8.8 6.6]
-        After resize, size is  [8.8 6.6]
-        '''
+        result1 = 5.5
         new_size = 1.1 * fig.get_size_inches()
         self.assertEqual(new_size, result1)
 
@@ -49,13 +41,9 @@ class TestStringMethods(unittest.TestCase):
         # After a single increment after get_size_inches() is called
         import matplotlib
         matplotlib.use('GTKAgg')
-        fig = plt.figure(figsize=(8, 6))
+        fig = plt.figure(figsize=(5, 5))
         
-        result1 = '''
-        Before resize, size is  [8. 6.]
-        Size will be set to  [8.8 6.6]
-        After resize, size is  [8.8 6.6]
-        '''
+        result1 = 5.5
         new_size = 1.1 * fig.get_size_inches()
         self.assertEqual(new_size, result1)
 
@@ -63,13 +51,9 @@ class TestStringMethods(unittest.TestCase):
         # After a single increment after get_size_inches() is called
         import matplotlib
         matplotlib.use('WX')
-        fig = plt.figure(figsize=(8, 6))
+        fig = plt.figure(figsize=(5, 5))
         
-        result1 = '''
-        Before resize, size is  [8. 6.]
-        Size will be set to  [8.8 6.6]
-        After resize, size is  [8.8 6.6]
-        '''
+        result1 = 5.5
         new_size = 1.1 * fig.get_size_inches()
         self.assertEqual(new_size, result1)
 
