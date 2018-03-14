@@ -84,6 +84,8 @@ class TriContourSet(ContourSet):
         tri, args, kwargs = Triangulation.get_from_args_and_kwargs(*args,
                                                                    **kwargs)
         z = np.asarray(args[0])
+
+        #identified potential area of code to fix add type check of nans and raise warning here maybe to fix
         if z.shape != tri.x.shape:
             raise ValueError('z array must have same length as triangulation x'
                              ' and y arrays')
