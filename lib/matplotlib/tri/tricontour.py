@@ -89,6 +89,11 @@ class TriContourSet(ContourSet):
         if z.shape != tri.x.shape:
             raise ValueError('z array must have same length as triangulation x'
                              ' and y arrays')
+        if len(z[np.isnan(z[:])]) != 0:
+            raise ValueError('z array must not contain nan values')
+        if len(z[np.isinf(z[:])]) != 0:
+            raise ValueError('z array must not contain inf values')
+
         self.zmax = z.max()
         self.zmin = z.min()
         if self.logscale and self.zmin <= 0:
