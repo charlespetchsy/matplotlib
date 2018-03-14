@@ -895,6 +895,12 @@ default: 'top'
         return im
 
     def set_size_inches(self, w, h=None, forward=True):
+        print("w --->", w)
+        print("h --->", h)
+
+        #forward = True
+        print("forward--->", forward)
+
         """Set the figure size in inches.
 
         Call signatures::
@@ -920,18 +926,31 @@ default: 'top'
         if not all(np.isfinite(_) for _ in (w, h)):
             raise ValueError('figure size must be finite not '
                              '({}, {})'.format(w, h))
-        self.bbox_inches.p1 = w, h
 
+        print("-----------")
+        print("w --->", w)
+        print("h --->", h)
+        print("-----------")
+
+        self.bbox_inches.p1 = w, h #problem - no
+
+        print("self.bbox_inches.", self.bbox_inches)
+        print("self.bbox_inches.p1", self.bbox_inches.p1)
         if forward:
             canvas = getattr(self, 'canvas')
+            print("canvas:", canvas)
             if canvas is not None:
                 ratio = getattr(self.canvas, '_dpi_ratio', 1)
                 dpival = self.dpi / ratio
                 canvasw = w * dpival
                 canvash = h * dpival
+                print(w)
+                print(h)
                 manager = getattr(self.canvas, 'manager', None)
+                print("canvas.manager: ", manager)
                 if manager is not None:
-                    manager.resize(int(canvasw), int(canvash))
+                    print("manager.resize: ")
+                    manager.resize(int(canvasw), int(canvash)) # this is where the problem lies
         self.stale = True
 
     def get_size_inches(self):
