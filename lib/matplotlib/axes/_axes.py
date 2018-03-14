@@ -17,8 +17,9 @@ from numpy import ma
 import matplotlib
 from matplotlib import _preprocess_data
 
-from matplotlib.lines import Line2D
+#=====
 from math import acos,sqrt
+#=====
 
 import matplotlib.cbook as cbook
 import matplotlib.collections as mcoll
@@ -3297,9 +3298,11 @@ class Axes(_AxesBase):
                 barcols.append(self.vlines(xo, lo, uo, **eb_lines_style))
                 if capsize > 0:
                     for i in range(len(y)):
-                        r = sqrt((50 * 50) / 4 + (y[i] * y[i]) + 10)
-                        dt = acos((y[i]) / (r))
-                        newline = Line2D([x[i] - dt, x[i] + dt], [r, r], lw=50/100.)
+                        r = sqrt((50*50)/4+(y[i]*y[i])+10)
+                        dt = acos((y[i])/(r))
+                        newline = mlines.Line2D([x[i]-dt, x[i]+dt], [lo[i],lo[i]], lw=100/100., color="red")
+                        caplines.append(newline)
+                        newline = mlines.Line2D([x[i]-dt, x[i]+dt], [uo[i],uo[i]], lw=100/100., color="red")
                         caplines.append(newline)
                     # print("CC: ", mlines.Line2D(xo, lo, marker='D', **eb_cap_style))
                     # caplines.append(mlines.Line2D(xo, lo, marker='D',
