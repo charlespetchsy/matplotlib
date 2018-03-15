@@ -3300,9 +3300,9 @@ class Axes(_AxesBase):
                     for i in range(len(y)):
                         r = sqrt((50*50)/4+(y[i]*y[i])+10)
                         dt = acos((y[i])/(r))
-                        newline = mlines.Line2D([x[i]-dt, x[i]+dt], [lo[i],lo[i]], lw=100/100., color="red")
+                        newline = mlines.Line2D([x[i]-(capsize/128), x[i]+(capsize/128)], [lo[i],lo[i]], color="r")
                         caplines.append(newline)
-                        newline = mlines.Line2D([x[i]-dt, x[i]+dt], [uo[i],uo[i]], lw=100/100., color="red")
+                        newline = mlines.Line2D([x[i]-dt, x[i]+dt], [uo[i],uo[i]], color="k")
                         caplines.append(newline)
                     # print("CC: ", mlines.Line2D(xo, lo, marker='D', **eb_cap_style))
                     # caplines.append(mlines.Line2D(xo, lo, marker='D',
