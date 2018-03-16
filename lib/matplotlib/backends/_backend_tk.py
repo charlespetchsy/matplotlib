@@ -215,11 +215,12 @@ class FigureCanvasTk(FigureCanvasBase):
             self._resize_callback(event)
 
         # compute desired figure size in inches
-        dpival = self.figure.dpi
-        winch = width/dpival
-        hinch = height/dpival
-        self.figure.set_size_inches(winch, hinch, forward=False)
-
+        if self._tkcanvas is not None:
+           dpival = self.figure.dpi
+           winch = width/dpival
+           hinch = height/dpival
+        else:
+           self.figure.set_size_inches(winch, hinch, forward=False)
 
         self._tkcanvas.delete(self._tkphoto)
         self._tkphoto = Tk.PhotoImage(
