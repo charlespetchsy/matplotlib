@@ -53,45 +53,25 @@ def test_polar_plot_2_with_nobar():
     ax.errorbar(theta, r, yerr=1, xerr=.1)
 
 
-@image_comparison(baseline_images=['polar_plot_2_nobar'], extensions=['png'], style='mpl20')
-def test_polar_plot_3_with_bar():
-    # From https://matplotlib.org/gallery/statistics/boxplot_demo.html
+@image_comparison(baseline_images=['notpolar_plot_bar'], extensions=['png'], style='mpl20')
+def test_notpolar_plot_with_bar():
+    angle = np.linspace(0.0, 2 * np.pi, 8, endpoint=False)
+    radius = np.array([450, 500, 550, 600, 650, 700, 750, 800])
+    err = radius / 12
+    width = 2 * np.pi / 8
 
-    # Fixing random state for reproducibility
-    np.random.seed(19680801)
+    ax = plt.subplot(1, 1, 1, polar=False)
+    bars = ax.bar(angle, radius, width=width, bottom=0.0, yerr=err, capsize=5)
+    ax.set_ylim(0, 950)
 
-    # fake up some data
-    spread = np.random.rand(50) * 100
-    center = np.ones(25) * 50
-    flier_high = np.random.rand(10) * 100 + 100
-    flier_low = np.random.rand(10) * -100
-    data = np.concatenate((spread, center, flier_high, flier_low), 0)
 
-    fig, axs = plt.subplots(2, 3)
+@image_comparison(baseline_images=['notpolar_plot_nobar'], extensions=['png'], style='mpl20')
+def test_notpolar_plot_with_nobar():
+    angle = np.linspace(0.0, 2 * np.pi, 8, endpoint=False)
+    radius = np.array([450, 500, 550, 600, 650, 700, 750, 800])
+    err = radius / 12
+    width = 2 * np.pi / 8
 
-    # basic plot
-    axs[0, 0].boxplot(data)
-    axs[0, 0].set_title('basic plot')
-
-    # notched plot
-    axs[0, 1].boxplot(data, 1)
-    axs[0, 1].set_title('notched plot')
-
-    # change outlier point symbols
-    axs[0, 2].boxplot(data, 0, 'gD')
-    axs[0, 2].set_title('change outlier\npoint symbols')
-
-    # don't show outlier points
-    axs[1, 0].boxplot(data, 0, '')
-    axs[1, 0].set_title("don't show\noutlier points")
-
-    # horizontal boxes
-    axs[1, 1].boxplot(data, 0, 'rs', 0)
-    axs[1, 1].set_title('horizontal boxes')
-
-    # change whisker length
-    axs[1, 2].boxplot(data, 0, 'rs', 0, 0.75)
-    axs[1, 2].set_title('change whisker length')
-
-    fig.subplots_adjust(left=0.08, right=0.98, bottom=0.05, top=0.9,
-                        hspace=0.4, wspace=0.3)
+    ax = plt.subplot(1, 1, 1, polar=False)
+    bars = ax.bar(angle, radius, width=width, bottom=0.0, yerr=err)
+    ax.set_ylim(0, 950)
