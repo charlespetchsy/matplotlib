@@ -3297,19 +3297,21 @@ class Axes(_AxesBase):
                 lo, uo = xywhere(lower, upper, noylims & everymask)
                 barcols.append(self.vlines(xo, lo, uo, **eb_lines_style))
                 if capsize > 0:
-                    for i in range(len(y)):
-                        r = sqrt((50*50)/4+(y[i]*y[i])+10)
-                        dt = acos((y[i])/(r))
-                        newline = mlines.Line2D([x[i]-(capsize/128), x[i]+(capsize/128)], [lo[i],lo[i]], color="r")
-                        caplines.append(newline)
-                        newline = mlines.Line2D([x[i]-dt, x[i]+dt], [uo[i],uo[i]], color="k")
-                        caplines.append(newline)
-                    # print("CC: ", mlines.Line2D(xo, lo, marker='D', **eb_cap_style))
-                    # caplines.append(mlines.Line2D(xo, lo, marker='D',
-                    #                               **eb_cap_style))
-                    # caplines.append(mlines.Line2D(xo, uo, marker='D',
-                    #                               **eb_cap_style))
-                    #
+                    if self.name != "polar":
+                        # non-polar plot - use original endcaps
+                        caplines.append(mlines.Line2D(xo, lo, marker='_',
+                                                      **eb_cap_style))
+                        caplines.append(mlines.Line2D(xo, uo, marker='_',
+                                                      **eb_cap_style))
+                    else:
+                        # polar plot - use lines instead of markers
+                        for i in range(len(y)):
+                            r = sqrt(1.01*(y[i]*y[i]))
+                            dt = acos((y[i])/(r))
+                            newline = mlines.Line2D([x[i]-dt, x[i]+dt], [lo[i],lo[i]], color=ecolor)
+                            caplines.append(newline)
+                            newline = mlines.Line2D([x[i]-dt, x[i]+dt], [uo[i],uo[i]], color=ecolor)
+                            caplines.append(newline)
 
 
             if lolims.any():
