@@ -85,17 +85,16 @@ class TriContourSet(ContourSet):
                                                                    **kwargs)
         z = np.asarray(args[0])
 
-        #identified potential area of code to fix add type check of nans and raise warning here maybe to fix
+        # identified potential area of code to fix add type check of nans and raise warning here maybe to fix
         if z.shape != tri.x.shape:
             raise ValueError('z array must have same length as triangulation x'
                              ' and y arrays')
 
-        #attempt solution 1 presented by ianthomas23 in issue
-        if len(z[np.isnan(z[:,:])]) != 0:
+        # attempt solution 1 presented by ianthomas23 in issue
+        if len(z[np.isnan(z[:])]) != 0:
             raise ValueError('z array must have contain no nan values')
 
-            
-        if len(z[np.isinf(z[:,:])]) != 0:
+        if len(z[np.isinf(z[:])]) != 0:
             raise ValueError('z array must have contain no inf values')
         
         self.zmax = z.max()
