@@ -19,6 +19,10 @@ from math import acos,sqrt
 import matplotlib
 from matplotlib import _preprocess_data
 
+#=====
+from math import acos,sqrt
+#=====
+
 import matplotlib.cbook as cbook
 import matplotlib.collections as mcoll
 import matplotlib.colors as mcolors
@@ -3246,10 +3250,20 @@ class Axes(_AxesBase):
                 lo, ro = xywhere(left, right, noxlims & everymask)
                 barcols.append(self.hlines(yo, lo, ro, **eb_lines_style))
                 if capsize > 0:
-                    caplines.append(mlines.Line2D(lo, yo, marker='|',
+                    if self.name != "polar":
+                        # non-polar plot - use original endcaps
+                            caplines.append(mlines.Line2D(lo, yo, marker='|',
                                                   **eb_cap_style))
-                    caplines.append(mlines.Line2D(ro, yo, marker='|',
+                            caplines.append(mlines.Line2D(ro, yo, marker='|',
                                                   **eb_cap_style))
+                    else:
+                        # polar plot - use lines instead of markers
+                        for i in range(len(x)):
+                            dt = abs(lo[i] - ro[i])
+                            newline = mlines.Line2D([lo[i], lo[i]], [yo[i]-dt,yo[i]+dt], color=ecolor)
+                            caplines.append(newline)
+                            newline = mlines.Line2D([ro[i], ro[i]], [yo[i]-dt,yo[i]+dt], color=ecolor)
+                            caplines.append(newline)
 
             if xlolims.any():
                 yo, _ = xywhere(y, right, xlolims & everymask)
@@ -3295,19 +3309,23 @@ class Axes(_AxesBase):
                 lo, uo = xywhere(lower, upper, noylims & everymask)
                 barcols.append(self.vlines(xo, lo, uo, **eb_lines_style))
 
-
                 if capsize > 0:
-                    for i in range(len(y)):
-                        r = sqrt((50 * 50) / 4 + (y[i] * y[i]) + 10)
-                        dt = acos((y[i]) / (r))
-                        newline = Line2D([x[i] - dt, x[i] + dt], [r, r], lw=50/100.)
-                        caplines.append(newline)
-                    # print("CC: ", mlines.Line2D(xo, lo, marker='D', **eb_cap_style))
-                    # caplines.append(mlines.Line2D(xo, lo, marker='D',
-                    #                               **eb_cap_style))
-                    # caplines.append(mlines.Line2D(xo, uo, marker='D',
-                    #                               **eb_cap_style))
-                    #
+                    if self.name != "polar":
+                        # non-polar plot - use original endcaps
+                        caplines.append(mlines.Line2D(xo, lo, marker='_',
+                                                      **eb_cap_style))
+                        caplines.append(mlines.Line2D(xo, uo, marker='_',
+                                                      **eb_cap_style))
+                    else:
+                        # polar plot - use lines instead of markers
+                        for i in range(len(y)):
+                            r = sqrt(1.01*(y[i]*y[i]))
+                            dt = acos((y[i])/(r))
+                            newline = mlines.Line2D([x[i]-dt, x[i]+dt], [lo[i],lo[i]], color=ecolor)
+                            caplines.append(newline)
+                            newline = mlines.Line2D([x[i]-dt, x[i]+dt], [uo[i],uo[i]], color=ecolor)
+                            caplines.append(newline)
+
 
             if lolims.any():
                 xo, _ = xywhere(x, lower, lolims & everymask)
