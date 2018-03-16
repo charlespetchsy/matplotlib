@@ -895,12 +895,6 @@ default: 'top'
         return im
 
     def set_size_inches(self, w, h=None, forward=True):
-        print("w --->", w)
-        print("h --->", h)
-
-        #forward = True
-        print("forward--->", forward)
-
         """Set the figure size in inches.
 
         Call signatures::
