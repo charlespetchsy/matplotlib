@@ -2353,7 +2353,6 @@ class RectangleSelector(_SelectorWidget):
         coordinates of the four corners of the rectangle starting
         and ending in the top left corner.
         """
-        print("geomtry ===")
 
         if hasattr(self.to_draw, 'get_verts'):
             xfm = self.ax.transData.inverted()
