@@ -19,9 +19,9 @@ def errFunc2():
 
 
 def test_contour_nan():
-    with pytest.raises(ValueError, 'z array must not contain nan values'):
+    with pytest.raises(ValueError):
         errFunc1()
 
 def test_contour_inf():
-    with pytest.raises(ValueError, 'z array must not contain inf values'):
+    with pytest.raises(ValueError):
         errFunc2()
