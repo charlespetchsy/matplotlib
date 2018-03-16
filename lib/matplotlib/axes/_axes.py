@@ -1520,7 +1520,6 @@ class Axes(_AxesBase):
             'k^:'  # black triangle_up markers connected by a dotted line
 
         """
-        print("This is a test to show installation worked")
         scalex = kwargs.pop('scalex', True)
         scaley = kwargs.pop('scaley', True)
 

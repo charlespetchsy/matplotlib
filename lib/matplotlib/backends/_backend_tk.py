@@ -210,7 +210,6 @@ class FigureCanvasTk(FigureCanvasBase):
         self._tkcanvas.focus_set()
 
     def resize(self, event):
-        print("resize from FigureCanvasTk(FigureCanvasBase)")
         width, height = event.width, event.height
         if self._resize_callback is not None:
             self._resize_callback(event)
@@ -517,9 +516,6 @@ class FigureManagerTk(FigureManagerBase):
         return toolmanager
 
     def resize(self, width, height):
-        print("resize from _backend_tk.py width x height", width, height)
-        print(self.canvas._tkcanvas.master)
-        print("%dx%d" % (width, height))
         self.canvas._tkcanvas.master.geometry("%dx%d" % (width, height))
 
         if self.toolbar is not None:
