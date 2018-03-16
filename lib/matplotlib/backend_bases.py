@@ -3111,6 +3111,7 @@ class NavigationToolbar2(object):
                 loc.refresh()
         self.canvas.draw_idle()
 
+
     def _update_view(self):
         """Update the viewlim and position from the view and
         position stack for each axes.

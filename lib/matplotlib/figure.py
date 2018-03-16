@@ -917,6 +917,7 @@ default: 'top'
         # argument, so unpack them
         if h is None:
             w, h = w
+        print("set_size_inches:", w, h)
         if not all(np.isfinite(_) for _ in (w, h)):
             raise ValueError('figure size must be finite not '
                              '({}, {})'.format(w, h))
@@ -933,6 +934,7 @@ default: 'top'
                 if manager is not None:
                     manager.resize(int(canvasw), int(canvash))
         self.stale = True
+
 
     def get_size_inches(self):
         """
@@ -1004,6 +1006,7 @@ default: 'top'
 
         .. ACCEPTS: float
         """
+        print("set_figwidth")
         self.set_size_inches(val, self.get_figheight(), forward=forward)
 
     def set_figheight(self, val, forward=True):
@@ -1012,6 +1015,7 @@ default: 'top'
 
         .. ACCEPTS: float
         """
+        print("set_figheight")
         self.set_size_inches(self.get_figwidth(), val, forward=forward)
 
     def set_frameon(self, b):

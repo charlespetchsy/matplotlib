@@ -7,6 +7,7 @@ from six.moves import tkinter as Tk
 import logging
 import os.path
 import sys
+from collections import namedtuple
 
 # Paint image to Tk photo blitter extension
 import matplotlib.backends.tkagg as tkagg
@@ -162,12 +163,15 @@ class FigureCanvasTk(FigureCanvasBase):
     """_keycode_lookup is used for badly mapped (i.e. no event.key_sym set)
        keys on apple keyboards."""
 
+    _saved_height = 0
+
     def __init__(self, figure, master=None, resize_callback=None):
         super(FigureCanvasTk, self).__init__(figure)
         self._idle = True
         self._idle_callback = None
         t1,t2,w,h = self.figure.bbox.bounds
         w, h = int(w), int(h)
+        _saved_height = int(h)
         self._tkcanvas = Tk.Canvas(
             master=master, background="white",
             width=w, height=h, borderwidth=0, highlightthickness=0)
@@ -214,12 +218,17 @@ class FigureCanvasTk(FigureCanvasBase):
         if self._resize_callback is not None:
             self._resize_callback(event)
 
-        # compute desired figure size in inches
-        dpival = self.figure.dpi
-        winch = width/dpival
-        hinch = height/dpival
-        self.figure.set_size_inches(winch, hinch, forward=False)
+        comp_height = [self._saved_height - height, height - self._saved_height]
+        offset = 0.35
 
+        if min(comp_height) <= offset <= max(comp_height):
+            print("Changing")
+            # compute desired figure size in inches
+            dpival = self.figure.dpi
+            winch = width/dpival
+            hinch = height/dpival
+            self.figure.set_size_inches(winch, hinch, forward=False)
+            self._saved_height = height
 
         self._tkcanvas.delete(self._tkphoto)
         self._tkphoto = Tk.PhotoImage(
@@ -519,6 +528,9 @@ class FigureManagerTk(FigureManagerBase):
 
         if self.toolbar is not None:
             self.toolbar.configure(width=width)
+
+
+
 
     def show(self):
         """
