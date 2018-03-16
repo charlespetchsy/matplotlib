@@ -13,6 +13,8 @@ import warnings
 
 import numpy as np
 from numpy import ma
+from matplotlib.lines import Line2D
+from math import acos,sqrt
 
 import matplotlib
 from matplotlib import _preprocess_data
@@ -3292,11 +3294,20 @@ class Axes(_AxesBase):
                 xo, _ = xywhere(x, lower, noylims & everymask)
                 lo, uo = xywhere(lower, upper, noylims & everymask)
                 barcols.append(self.vlines(xo, lo, uo, **eb_lines_style))
+
+
                 if capsize > 0:
-                    caplines.append(mlines.Line2D(xo, lo, marker='_',
-                                                  **eb_cap_style))
-                    caplines.append(mlines.Line2D(xo, uo, marker='_',
-                                                  **eb_cap_style))
+                    for i in range(len(y)):
+                        r = sqrt((50 * 50) / 4 + (y[i] * y[i]) + 10)
+                        dt = acos((y[i]) / (r))
+                        newline = Line2D([x[i] - dt, x[i] + dt], [r, r], lw=50/100.)
+                        caplines.append(newline)
+                    # print("CC: ", mlines.Line2D(xo, lo, marker='D', **eb_cap_style))
+                    # caplines.append(mlines.Line2D(xo, lo, marker='D',
+                    #                               **eb_cap_style))
+                    # caplines.append(mlines.Line2D(xo, uo, marker='D',
+                    #                               **eb_cap_style))
+                    #
 
             if lolims.any():
                 xo, _ = xywhere(x, lower, lolims & everymask)
