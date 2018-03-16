@@ -3248,10 +3248,20 @@ class Axes(_AxesBase):
                 lo, ro = xywhere(left, right, noxlims & everymask)
                 barcols.append(self.hlines(yo, lo, ro, **eb_lines_style))
                 if capsize > 0:
-                    caplines.append(mlines.Line2D(lo, yo, marker='|',
+                    if self.name != "polar":
+                        # non-polar plot - use original endcaps
+                            caplines.append(mlines.Line2D(lo, yo, marker='|',
                                                   **eb_cap_style))
-                    caplines.append(mlines.Line2D(ro, yo, marker='|',
+                            caplines.append(mlines.Line2D(ro, yo, marker='|',
                                                   **eb_cap_style))
+                    else:
+                        # polar plot - use lines instead of markers
+                        for i in range(len(x)):
+                            dt = abs(lo[i] - ro[i])
+                            newline = mlines.Line2D([lo[i], lo[i]], [yo[i]-dt,yo[i]+dt], color=ecolor)
+                            caplines.append(newline)
+                            newline = mlines.Line2D([ro[i], ro[i]], [yo[i]-dt,yo[i]+dt], color=ecolor)
+                            caplines.append(newline)
 
             if xlolims.any():
                 yo, _ = xywhere(y, right, xlolims & everymask)
