@@ -1531,6 +1531,15 @@ class Axes(_AxesBase):
         self.autoscale_view(scalex=scalex, scaley=scaley)
         return lines
 
+    # This is a placeholder
+    def swapAxis(self):
+        '''
+        Axis of the plot data will be interchanged.
+        
+        :return:
+        '''
+        return "Hello, World"
+
     @_preprocess_data(replace_names=["x", "y"], label_namer="y")
     @docstring.dedent_interpd
     def plot_date(self, x, y, fmt='o', tz=None, xdate=True, ydate=False,
