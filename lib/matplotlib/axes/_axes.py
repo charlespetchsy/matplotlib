@@ -1528,7 +1528,8 @@ class Axes(_AxesBase):
             self.add_line(line)
             lines.append(line)
 
-        self.autoscale_view(scalex=scalex, scaley=scaley)
+        # swapped variable for tracing
+        self.autoscale_view(scalex=scaley, scaley=scalex)
         return lines
 
     @_preprocess_data(replace_names=["x", "y"], label_namer="y")
