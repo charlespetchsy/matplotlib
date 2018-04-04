@@ -88,6 +88,21 @@ _colors_full_map.update({k.replace('gray', 'grey'): v
 _colors_full_map.update(BASE_COLORS)
 _colors_full_map = _ColorMapping(_colors_full_map)
 
+registerPalette('default', _colors_full_map)
+
+_palettes = {}
+
+def registerPalette(key,map):
+    _palettes[key] = map
+
+def setPalette(palette):
+    _colors_full_map.update(palette)
+    _colors_full_map.update({k.replace('grey', 'gray'): v
+                         for k, v in palette.items()
+                         if 'grey' in k})
+def updatePalette(key,map):
+    _palettes[key].update(map);
+
 
 def get_named_colors_mapping():
     """Return the global mapping of names to named colors."""
