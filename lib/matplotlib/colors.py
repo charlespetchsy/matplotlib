@@ -75,6 +75,7 @@ class _ColorMapping(dict):
 
 
 _colors_full_map = {}
+_palettes = {}
 # Set by reverse priority order.
 _colors_full_map.update(XKCD_COLORS)
 _colors_full_map.update({k.replace('grey', 'gray'): v
@@ -88,7 +89,22 @@ _colors_full_map.update({k.replace('gray', 'grey'): v
 _colors_full_map.update(BASE_COLORS)
 _colors_full_map = _ColorMapping(_colors_full_map)
 
+def registerPalette(key,map):
+    _palettes[key] = map
 
+registerPalette('default', _colors_full_map)
+
+
+def setPalette(key):
+    _colors_full_map.update(_palettes[key])
+    _colors_full_map.update({k.replace('grey', 'gray'): v
+                         for k, v in _palettes[key].items()
+                         if 'grey' in k})
+def updatePalette(key,map):
+    _palettes[key].update(map)
+
+def getPalettes():
+    return _palettes
 def get_named_colors_mapping():
     """Return the global mapping of names to named colors."""
     return _colors_full_map
