@@ -57,6 +57,7 @@ def _indent_str(obj):  # textwrap.indent(str(obj), 4) on Py3.
     return re.sub("(^|\n)", r"\1    ", str(obj))
 
 
+
 class TransformNode(object):
     """
     :class:`TransformNode` is the base class for anything that
@@ -825,10 +826,6 @@ class Bbox(BboxBase):
 
         *width* and *height* may be negative.
         """
-        print("from_bounds width ->:", width)
-        print("from_bounds x0 + width ->:", x0 + width)
-        print("from_bounds height ->:", height)
-        print("from_bounds y0 + height ->:", y0 + height)
         return Bbox.from_extents(x0, y0, x0 + width, y0 + height)
 
     @staticmethod
@@ -840,9 +837,6 @@ class Bbox(BboxBase):
         The *y*-axis increases upwards.
         """
         points = np.array(args, dtype=float).reshape(2, 2)
-        print("from_args -> args", args)
-        print("from_extents -> points", points)
-        print("============================")
         return Bbox(points)
 
     def __format__(self, fmt):
