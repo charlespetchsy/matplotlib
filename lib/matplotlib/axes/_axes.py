@@ -58,6 +58,7 @@ _alias_map = {'color': ['c'],
               'markeredgecolor': ['mec'],
               'markeredgewidth': ['mew'],
               'markersize': ['ms'],
+              'swap': ['sw'],
              }
 
 
@@ -1523,12 +1524,19 @@ class Axes(_AxesBase):
 
         kwargs = cbook.normalize_kwargs(kwargs, _alias_map)
 
-        for line in self._get_lines(*args, **kwargs):
-            self.add_line(line)
-            lines.append(line)
+        for arg in args:
+            if arg == 'sw':
+                for line in self._get_lines(args[1], args[0], **kwargs):
+                    self.add_line(line)
+                    lines.append(line)
+                break
+            else:
+                for line in self._get_lines(*args, **kwargs):
+                    self.add_line(line)
+                    lines.append(line)
 
         # swapped variable for tracing
-        self.autoscale_view(scalex=scaley, scaley=scalex)
+        self.autoscale_view(scalex=scalex, scaley=scaley)
         return lines
 
     @_preprocess_data(replace_names=["x", "y"], label_namer="y")
