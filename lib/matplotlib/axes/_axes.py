@@ -1530,12 +1530,11 @@ class Axes(_AxesBase):
                     self.add_line(line)
                     lines.append(line)
                 break
-            else:
-                for line in self._get_lines(*args, **kwargs):
-                    self.add_line(line)
-                    lines.append(line)
+        else:
+            for line in self._get_lines(*args, **kwargs):
+                self.add_line(line)
+                lines.append(line)
 
-        # swapped variable for tracing
         self.autoscale_view(scalex=scalex, scaley=scaley)
         return lines
 
