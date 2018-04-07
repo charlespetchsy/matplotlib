@@ -58,6 +58,7 @@ _alias_map = {'color': ['c'],
               'markeredgecolor': ['mec'],
               'markeredgewidth': ['mew'],
               'markersize': ['ms'],
+              'swap': ['sw'],
              }
 
 
@@ -1514,7 +1515,6 @@ class Axes(_AxesBase):
             'k^:'  # black triangle_up markers connected by a dotted line
 
         """
-        print("This is a test to show installation worked")
         scalex = kwargs.pop('scalex', True)
         scaley = kwargs.pop('scaley', True)
 
@@ -1524,9 +1524,16 @@ class Axes(_AxesBase):
 
         kwargs = cbook.normalize_kwargs(kwargs, _alias_map)
 
-        for line in self._get_lines(*args, **kwargs):
-            self.add_line(line)
-            lines.append(line)
+        for arg in args:
+            if arg == 'sw':
+                for line in self._get_lines(args[1], args[0], **kwargs):
+                    self.add_line(line)
+                    lines.append(line)
+                break
+        else:
+            for line in self._get_lines(*args, **kwargs):
+                self.add_line(line)
+                lines.append(line)
 
         self.autoscale_view(scalex=scalex, scaley=scaley)
         return lines
